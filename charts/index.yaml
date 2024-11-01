@@ -1,0 +1,16 @@
+apiVersion: v1
+entries:
+  web-tty:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2024-11-01T16:03:06.013091+01:00"
+    description: A Helm chart for Kubernetes
+    digest: 70839e16f739618bdf02f91b25b5a7c8aacd7db5a723e0c65f8dba67834f9dc7
+    name: web-tty
+    type: application
+    sources:
+    - https://github.com/rabarbra/web-tty/tree/main/helm/web-tty
+    urls:
+    - web-tty-0.1.0.tgz
+    version: 0.1.0
+generated: "2024-11-01T16:03:06.012312+01:00"
