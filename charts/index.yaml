@@ -11,6 +11,6 @@ entries:
     sources:
     - https://github.com/rabarbra/web-tty/tree/main/helm/web-tty
     urls:
-    - web-tty-0.1.0.tgz
+    - https://rabarbra.github.io/charts/web-tty-0.1.0.tgz
     version: 0.1.0
 generated: "2024-11-01T16:03:06.012312+01:00"
