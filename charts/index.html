@@ -3,18 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dynamic Helm Chart Page</title>
+    <title>Rabarbra Helm Charts</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 20px; background-color: #f9f9f9; }
-        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-        th { background-color: #f2f2f2; }
-        a { color: #0073e6; }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #eceff4;
+            color: #3b4252;
+        }
+        .chart-container {
+            margin-bottom: 40px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #d8dee9;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #e5e9f0;
+        }
+        a {
+            color: #5e81ac;
+        }
+        h2 {
+            margin-top: 0;
+        }
+        @media (prefers-color-scheme: dark) {
+        body {
+            background-color: #2e3440;
+            color: #eceff4;
+        }
+        th, td {
+            border: 1px solid #3b4252;
+        }
+        th {
+            background-color: #3b4252;
+        }
+        a {
+            color: #81a1c1;
+        }
+        }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
 </head>
 <body>
-    <h1>Helm Chart Details</h1>
+    <h1>Rabarbra Helm Charts</h1>
     <div id="content">Loading...</div>
 
     <script>
@@ -24,24 +62,31 @@
                 const yamlText = await response.text();
 
                 const data = jsyaml.load(yamlText);
-                const entry = data.entries['web-tty'][0];
+                const entries = data.entries;
+                let content = '';
 
-                const content = `
-                    <table>
-                        <tr><th>Field</th><th>Value</th></tr>
-                        <tr><td>Chart Name</td><td>${entry.name}</td></tr>
-                        <tr><td>Version</td><td>${entry.version}</td></tr>
-                        <tr><td>App Version</td><td>${entry.appVersion}</td></tr>
-                        <tr><td>Created</td><td>${entry.created}</td></tr>
-                        <tr><td>Description</td><td>${entry.description}</td></tr>
-                        <tr><td>Digest</td><td>${entry.digest}</td></tr>
-                        <tr><td>Type</td><td>${entry.type}</td></tr>
-                        <tr><td>Sources</td><td><a href="${entry.sources[0]}" target="_blank">Source Link</a></td></tr>
-                        <tr><td>URL</td><td><a href="${entry.urls[0]}" target="_blank">Download Link</a></td></tr>
-                        <tr><td>Generated</td><td>${data.generated}</td></tr>
-                    </table>
-                `;
-
+                for (let chartName in entries) {
+                    const chartList = entries[chartName];
+                    chartList.forEach((entry, index) => {
+                        content += `
+                            <div class="chart-container">
+                                <h2>${chartName} (Version ${entry.version})</h2>
+                                <table>
+                                    <tr><th>Field</th><th>Value</th></tr>
+                                    <tr><td>Chart Name</td><td>${entry.name}</td></tr>
+                                    <tr><td>Version</td><td>${entry.version}</td></tr>
+                                    <tr><td>App Version</td><td>${entry.appVersion}</td></tr>
+                                    <tr><td>Created</td><td>${entry.created}</td></tr>
+                                    <tr><td>Description</td><td>${entry.description}</td></tr>
+                                    <tr><td>Digest</td><td>${entry.digest}</td></tr>
+                                    <tr><td>Type</td><td>${entry.type}</td></tr>
+                                    <tr><td>Sources</td><td><a href="${entry.sources[0]}" target="_blank">Source Link</a></td></tr>
+                                    <tr><td>URL</td><td><a href="${entry.urls[0]}" target="_blank">Download Link</a></td></tr>
+                                </table>
+                            </div>
+                        `;
+                    });
+                }
                 document.getElementById('content').innerHTML = content;
             } catch (error) {
                 console.error('Error fetching or parsing the YAML file:', error);
