@@ -3,24 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Helm Charts</title>
+    <title>Dynamic Helm Chart Page</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 40px;
-            padding: 20px;
-            background-color: #f0f0f0;
-        }
-        h1 {
-            color: #333;
-        }
-        p {
-            font-size: 1.2em;
-        }
+        body { font-family: Arial, sans-serif; margin: 20px; background-color: #f9f9f9; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        a { color: #0073e6; }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
 </head>
 <body>
-    <h1>Helm Charts</h1>
-    <p>This is a simple HTML page with minimal styling. You can customize it to suit your needs.</p>
+    <h1>Helm Chart Details</h1>
+    <div id="content">Loading...</div>
+
+    <script>
+        async function fetchAndDisplayYaml() {
+            try {
+                const response = await fetch('https://rabarbra.github.io/charts/index.yaml');
+                const yamlText = await response.text();
+
+                const data = jsyaml.load(yamlText);
+                const entry = data.entries['web-tty'][0];
+
+                const content = `
+                    <table>
+                        <tr><th>Field</th><th>Value</th></tr>
+                        <tr><td>Chart Name</td><td>${entry.name}</td></tr>
+                        <tr><td>Version</td><td>${entry.version}</td></tr>
+                        <tr><td>App Version</td><td>${entry.appVersion}</td></tr>
+                        <tr><td>Created</td><td>${entry.created}</td></tr>
+                        <tr><td>Description</td><td>${entry.description}</td></tr>
+                        <tr><td>Digest</td><td>${entry.digest}</td></tr>
+                        <tr><td>Type</td><td>${entry.type}</td></tr>
+                        <tr><td>Sources</td><td><a href="${entry.sources[0]}" target="_blank">Source Link</a></td></tr>
+                        <tr><td>URL</td><td><a href="${entry.urls[0]}" target="_blank">Download Link</a></td></tr>
+                        <tr><td>Generated</td><td>${data.generated}</td></tr>
+                    </table>
+                `;
+
+                document.getElementById('content').innerHTML = content;
+            } catch (error) {
+                console.error('Error fetching or parsing the YAML file:', error);
+                document.getElementById('content').innerHTML = '<p>Failed to load data.</p>';
+            }
+        }
+
+        fetchAndDisplayYaml();
+    </script>
 </body>
 </html>
