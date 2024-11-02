@@ -24,7 +24,7 @@
             padding: 8px;
             text-align: left;
         }
-        th {
+        table {
             background-color: #e5e9f0;
         }
         a {
@@ -41,7 +41,7 @@
         th, td {
             border: 1px solid #3b4252;
         }
-        th {
+        table {
             background-color: #3b4252;
         }
         a {
@@ -70,9 +70,8 @@
                     chartList.forEach((entry, index) => {
                         content += `
                             <div class="chart-container">
-                                <h2>${chartName} (Version ${entry.version})</h2>
+                                <h2>${chartName} (version ${entry.version})</h2>
                                 <table>
-                                    <tr><th>Field</th><th>Value</th></tr>
                                     <tr><td>Chart Name</td><td>${entry.name}</td></tr>
                                     <tr><td>Version</td><td>${entry.version}</td></tr>
                                     <tr><td>App Version</td><td>${entry.appVersion}</td></tr>
