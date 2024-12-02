@@ -4,7 +4,81 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Polina Simonenko</title>
-  <link rel="stylesheet" href="style.css">
+  <style>
+    :root {
+      --background: #ECEFF4;
+      --text: #2E3440;
+      --accent: #5E81AC;
+      --muted: #4C566A;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: var(--background);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    header {
+      padding: 1rem;
+      background-color: var(--muted);
+      color: var(--background);
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+    }
+
+    main {
+      flex: 1;
+      padding: 1rem;
+    }
+
+    .intro, .links {
+      margin-bottom: 2rem;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background-color: var(--muted);
+      color: var(--background);
+    }
+
+    .contacts {
+      margin-top: 1rem;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --background: #2E3440;
+        --text: #D8DEE9;
+        --accent: #88C0D0;
+        --muted: #3B4252;
+      }
+
+      header, footer {
+        background-color: var(--muted);
+        color: var(--text);
+      }
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -27,7 +101,11 @@
 
   <footer>
     <p>© 2024 Polina Simonenko</p>
+    <div class="contacts">
+      <a href="https://github.com/rabarbra">GitHub</a>
+      |
+      <a href="mailto:rabarbrablad@gmail.com">Email</a>
+    </div>
   </footer>
-
 </body>
 </html>
